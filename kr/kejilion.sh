@@ -2662,7 +2662,7 @@ clear_host_port_rules() {
 		iptables -D INPUT -p tcp --dport "$port" -j DROP
 	fi
 
-	# 기본 액세스를 허용하는 명확한 규칙
+	# 清除允许本机访问的规则
 	if iptables -C INPUT -p tcp --dport "$port" -s 127.0.0.0/8 -j ACCEPT &>/dev/null; then
 		iptables -D INPUT -p tcp --dport "$port" -s 127.0.0.0/8 -j ACCEPT
 	fi
@@ -4470,7 +4470,7 @@ sed -i 's/^\s*#\?\s*PermitRootLogin.*/PermitRootLogin yes/g' /etc/ssh/sshd_confi
 sed -i 's/^\s*#\?\s*PasswordAuthentication.*/PasswordAuthentication yes/g' /etc/ssh/sshd_config;
 rm -rf /etc/ssh/sshd_config.d/* /etc/ssh/ssh_config.d/*
 restart_ssh
-echo -e "${gl_lv}루트 로그인이 설정되었습니다!${gl_bai}"
+echo -e "${gl_lv}루트 로그인 설정이 완료되었습니다!${gl_bai}"
 
 }
 
@@ -7875,7 +7875,7 @@ linux_ldnmp() {
 			  ;;
 		  2)
 			  echo "데이터베이스 백업은 .gz-end 압축 패키지 여야합니다. Pagoda/1Panel의 백업 데이터 가져 오기를 지원하려면/홈/디렉토리에 넣으십시오."
-			  read -e -p "다운로드 링크를 입력하여 백업 데이터를 원격으로 다운로드 할 수도 있습니다. Enter가 직접 누르면 원격 다운로드를 건너 뜁니다." url_download_db
+			  read -e -p "다운로드 링크를 입력하여 백업 데이터를 원격으로 다운로드 할 수도 있습니다. 원격 다운로드를 건너 뛰려면 Enter를 직접 누르십시오." url_download_db
 
 			  cd /home/
 			  if [ -n "$url_download_db" ]; then
@@ -8438,7 +8438,7 @@ linux_panel() {
 	  echo -e "${gl_kjlan}33.  ${gl_bai}썬 패널 탐색 패널${gl_kjlan}34.  ${gl_bai}Pingvin-Share 파일 공유 플랫폼"
 	  echo -e "${gl_kjlan}35.  ${gl_bai}미니멀리스트 친구들${gl_kjlan}36.  ${gl_bai}LobeChatai 채팅 집계 웹 사이트"
 	  echo -e "${gl_kjlan}37.  ${gl_bai}MYIP 도구 상자${gl_huang}★${gl_bai}                        ${gl_kjlan}38.  ${gl_bai}Xiaoya Alist 가족 버킷"
-	  echo -e "${gl_kjlan}39.  ${gl_bai}Bilililive 라이브 방송 녹음 도구${gl_kjlan}40.  ${gl_bai}Websh 웹 버전 SSH 연결 도구"
+	  echo -e "${gl_kjlan}39.  ${gl_bai}Bilililive Live Broadcast 녹음 도구${gl_kjlan}40.  ${gl_bai}Websh 웹 버전 SSH 연결 도구"
 	  echo -e "${gl_kjlan}------------------------"
 	  echo -e "${gl_kjlan}41.  ${gl_bai}마우스 관리 패널${gl_kjlan}42.  ${gl_bai}Nexte 원격 연결 도구"
 	  echo -e "${gl_kjlan}43.  ${gl_bai}Rustdesk 원격 책상 (서버)${gl_huang}★${gl_bai}          ${gl_kjlan}44.  ${gl_bai}Rustdesk 원격 책상 (릴레이)${gl_huang}★${gl_bai}"
@@ -11867,7 +11867,7 @@ EOF
 			  echo "원 스톱 시스템 최적화"
 			  echo "------------------------------------------------"
 			  echo "다음은 작동하고 최적화됩니다"
-			  echo "1. 시스템을 최신으로 업데이트하십시오"
+			  echo "1. 更新系统到最新"
 			  echo "2. 시스템 정크 파일 정리"
 			  echo -e "3. 가상 메모리를 설정하십시오${gl_huang}1G${gl_bai}"
 			  echo -e "4. SSH 포트 번호를 설정하십시오${gl_huang}5522${gl_bai}"
@@ -12134,7 +12134,7 @@ linux_file() {
 				read -e -p "현재 파일 이름을 입력하십시오 :" current_name
 				read -e -p "새 파일 이름을 입력하십시오 :" new_name
 				mv "$current_name" "$new_name" && echo "이름이 바뀌 었습니다" || echo "이름 바꾸지 실패했습니다"
-				send_stats "파일의 이름을 바꿉니다"
+				send_stats "重命名文件"
 				;;
 			15) # 删除文件
 				read -e -p "삭제하려면 파일 이름을 입력하십시오." filename
@@ -12191,7 +12191,7 @@ linux_file() {
 
 				# -r 옵션을 사용하여 디렉토리를 재귀 적으로 복사하십시오
 				cp -r "$src_path" "$dest_path" && echo "파일 또는 디렉토리가 복사되었습니다$dest_path" || echo "파일이나 디렉토리를 복사하지 못했습니다"
-				send_stats "파일 또는 디렉토리를 복사하십시오"
+				send_stats "파일 또는 디렉토리를 복사합니다"
 				;;
 
 
