@@ -1146,9 +1146,9 @@ iptables_panel() {
 				  send_stats "指定されたポートを開きます"
 				  ;;
 			  2)
-				  read -e -p "请输入关闭的端口号: " c_port
+				  read -e -p "閉じたポート番号を入力してください：" c_port
 				  close_port $c_port
-				  send_stats "关闭指定端口"
+				  send_stats "指定されたポートを閉じます"
 				  ;;
 			  3)
 				  # すべてのポートを開きます
@@ -1721,7 +1721,7 @@ web_del() {
 		dbname=$(echo "$yuming" | sed -e 's/[^A-Za-z0-9]/_/g')
 		dbrootpasswd=$(grep -oP 'MYSQL_ROOT_PASSWORD:\s*\K.*' /home/web/docker-compose.yml | tr -d '[:space:]')
 
-		# 删除数据库前检查是否存在，避免报错
+		# エラーを避けるために、データベースを削除する前にデータベースが存在するかどうかを確認します
 		echo "データベースの削除：$dbname"
 		docker exec mysql mysql -u root -p"$dbrootpasswd" -e "DROP DATABASE ${dbname};" > /dev/null 2>&1
 	done
@@ -1801,7 +1801,7 @@ patch_wp_memory_limit() {
   local TARGET_DIR="/home/web/html"    # 路径写死
 
   find "$TARGET_DIR" -type f -name "wp-config.php" | while read -r FILE; do
-	# 古い定義を削除します
+	# 删除旧定义
 	sed -i "/define(['\"]WP_MEMORY_LIMIT['\"].*/d" "$FILE"
 	sed -i "/define(['\"]WP_MAX_MEMORY_LIMIT['\"].*/d" "$FILE"
 
@@ -3373,7 +3373,7 @@ ldnmp_web_status() {
 		echo "------------------------"
 		echo "1.ドメイン名証明書を適用/更新する2。サイトドメイン名を変更します"
 		echo "3.サイトキャッシュをクリーンアップ4。関連するサイトを作成する"
-		echo "5.  查看访问日志                    6.  查看错误日志"
+		echo "5.アクセスログを表示6。エラーログを表示します"
 		echo "7.グローバル構成の編集8。サイト構成の編集"
 		echo "9.サイトデータベースの管理10。サイト分析レポートを表示します"
 		echo "------------------------"
@@ -3916,7 +3916,7 @@ frps_panel() {
 
 			8)
 				send_stats "IPアクセスをブロックします"
-				echo "アンチジェネレーションドメイン名にアクセスした場合は、この関数を使用して、より安全なIP+ポートアクセスをブロックします。"
+				echo "アンチジェネレーションドメイン名にアクセスした場合、この関数を使用して、より安全なIP+ポートアクセスをブロックできます。"
 				read -e -p "ブロックする必要があるポートを入力してください。" frps_port
 				block_host_port "$frps_port" "$ipv4_address"
 				;;
@@ -3944,7 +3944,7 @@ frpc_panel() {
 		check_frp_app
 		check_docker_image_update $docker_name
 		echo -e "FRPクライアント$check_frp $update_status"
-		echo "サーバーにドッキングした後、ドッキングした後、インターネットへのアクセスにイントラネット侵入サービスを作成できます"
+		echo "サーバーでドッキングした後、ドッキングした後、インターネットへのアクセスにイントラネット侵入サービスを作成できます"
 		echo "公式ウェブサイトの紹介：https：//github.com/fatedier/frp/"
 		echo "ビデオ教育：https：//www.bilibili.com/video/bv1ymw6e2ewl?t=173.9"
 		echo "------------------------"
@@ -5327,7 +5327,7 @@ Kernel_optimize() {
 	  echo "--------------------"
 	  echo "1.高性能最適化モード：システムパフォーマンスを最大化し、ファイル記述子、仮想メモリ、ネットワーク設定、キャッシュ管理、CPU設定を最適化します。"
 	  echo "2。バランスの取れた最適化モード：毎日の使用に適したパフォーマンスとリソース消費のバランス。"
-	  echo "3.ウェブサイトの最適化モード：Webサイトサーバーを最適化して、接続処理機能、応答速度、全体的なパフォーマンスを同時に改善します。"
+	  echo "3.ウェブサイトの最適化モード：Webサイトサーバーを最適化して、接続処理機能、応答速度、全体的なパフォーマンスを並行します。"
 	  echo "4。ライブブロードキャスト最適化モード：ライブブロードキャストストリーミングの特別なニーズを最適化して、遅延を減らし、伝送パフォーマンスを向上させます。"
 	  echo "5。ゲームサーバーの最適化モード：ゲームサーバーを最適化して、同時処理機能と応答速度を改善します。"
 	  echo "6.デフォルト設定を復元します：システム設定をデフォルトの構成に復元します。"
@@ -5598,10 +5598,10 @@ linux_trash() {
 		fi
 		;;
 	  4)
-		read -e -p "リサイクルビンをクリアすることを確認しますか？ [Y/N]：" confirm
+		read -e -p "确认清空回收站？[y/n]: " confirm
 		if [[ "$confirm" == "y" ]]; then
 		  trash-empty
-		  echo "リサイクルビンがクリアされました。"
+		  echo "回收站已清空。"
 		fi
 		;;
 	  *)
@@ -5613,12 +5613,12 @@ linux_trash() {
 
 
 
-# バックアップを作成します
+# 创建备份
 create_backup() {
-	send_stats "バックアップを作成します"
+	send_stats "创建备份"
 	local TIMESTAMP=$(date +"%Y%m%d%H%M%S")
 
-	# ユーザーにバックアップディレクトリを入力するように求めます
+	# 提示用户输入备份目录
 	echo "バックアップ例を作成します："
 	echo "- 単一のディレクトリをバックアップします： /var /www"
 	echo "- バックアップ複数のディレクトリ： /etc /home /var /log"
@@ -6136,7 +6136,7 @@ add_task() {
 
 	case $auth_choice in
 		1)
-			read -s -p "请输入密码: " password_or_key
+			read -s -p "パスワードを入力してください：" password_or_key
 			echo  # 换行
 			auth_method="password"
 			;;
@@ -6508,7 +6508,7 @@ linux_tools() {
 	  echo -e "${gl_kjlan}11.  ${gl_bai}BTOPモダン監視ツール${gl_huang}★${gl_bai}             ${gl_kjlan}12.  ${gl_bai}範囲ファイル管理ツール"
 	  echo -e "${gl_kjlan}13.  ${gl_bai}NCDUディスク職業視聴ツール${gl_kjlan}14.  ${gl_bai}FZFグローバル検索ツール"
 	  echo -e "${gl_kjlan}15.  ${gl_bai}VIMテキストエディター${gl_kjlan}16.  ${gl_bai}ナノテキストエディター${gl_huang}★${gl_bai}"
-	  echo -e "${gl_kjlan}17.  ${gl_bai}git 版本控制系统"
+	  echo -e "${gl_kjlan}17.  ${gl_bai}gitバージョン制御システム"
 	  echo -e "${gl_kjlan}------------------------"
 	  echo -e "${gl_kjlan}21.  ${gl_bai}マトリックス画面保証${gl_kjlan}22.  ${gl_bai}列車のスクリーンのセキュリティ"
 	  echo -e "${gl_kjlan}26.  ${gl_bai}テトリスゲーム${gl_kjlan}27.  ${gl_bai}ヘビを食べるゲーム"
@@ -6904,7 +6904,7 @@ linux_docker() {
 				  echo "ネットワーク操作"
 				  echo "------------------------"
 				  echo "1.ネットワークを作成します"
-				  echo "2. 加入网络"
+				  echo "2。インターネットに参加してください"
 				  echo "3。ネットワークを終了します"
 				  echo "4.ネットワークを削除します"
 				  echo "------------------------"
@@ -7469,7 +7469,7 @@ linux_ldnmp() {
 	echo -e "${gl_huang}21.  ${gl_bai}nginxのみをインストールします${gl_huang}★${gl_bai}                     ${gl_huang}22.  ${gl_bai}サイトリダイレクト"
 	echo -e "${gl_huang}23.  ${gl_bai}サイトリバースプロキシ-IP+ポート${gl_huang}★${gl_bai}            ${gl_huang}24.  ${gl_bai}サイトリバースプロキシ - ドメイン名"
 	echo -e "${gl_huang}25.  ${gl_bai}Bitwardenパスワード管理プラットフォームをインストールします${gl_huang}26.  ${gl_bai}HaloブログのWebサイトをインストールします"
-	echo -e "${gl_huang}27.  ${gl_bai}AIペイントプロンプトワードジェネレーターをインストールします${gl_huang}28.  ${gl_bai}站点反向代理-负载均衡"
+	echo -e "${gl_huang}27.  ${gl_bai}AIペイントプロンプトワードジェネレーターをインストールします${gl_huang}28.  ${gl_bai}サイトの逆プロキシロードバランス"
 	echo -e "${gl_huang}30.  ${gl_bai}静的サイトをカスタマイズします"
 	echo -e "${gl_huang}------------------------"
 	echo -e "${gl_huang}31.  ${gl_bai}サイトデータ管理${gl_huang}★${gl_bai}                    ${gl_huang}32.  ${gl_bai}サイトデータ全体をバックアップします"
@@ -7644,7 +7644,7 @@ linux_ldnmp() {
 	  echo "Redisポート：6379"
 	  echo ""
 	  echo "ウェブサイトURL：https：//$yuming"
-	  echo "バックグラウンドログインパス： /admin"
+	  echo "バックエンドログインパス： /admin"
 	  echo "------------------------"
 	  echo "ユーザー名：admin"
 	  echo "パスワード：管理者"
@@ -11219,7 +11219,7 @@ EOF
 						  ;;
 					  4)
 					   read -e -p "ユーザー名を入力してください：" username
-					   # sudoersファイルからユーザーのsudo許可を削除します
+					   # sudoersファイルからユーザーのsudoアクセス許可を削除します
 					   sed -i "/^$username\sALL=(ALL:ALL)\sALL/d" /etc/sudoers
 
 						  ;;
@@ -11570,7 +11570,7 @@ EOF
 				echo "1.防衛プログラムをインストールします"
 				echo "------------------------"
 				echo "2。SSH傍受記録を表示します"
-				echo "3.リアルタイムログ監視"
+				echo "3。リアルタイムログ監視"
 				echo "------------------------"
 				echo "9.防衛プログラムをアンインストールします"
 				echo "------------------------"
@@ -12323,7 +12323,7 @@ while true; do
 	  echo -e "${gl_kjlan}バッチでタスクを実行します${gl_bai}"
 	  echo -e "${gl_kjlan}11. ${gl_bai}Tech Lionスクリプトをインストールします${gl_kjlan}12. ${gl_bai}システムを更新します${gl_kjlan}13. ${gl_bai}システムを掃除します"
 	  echo -e "${gl_kjlan}14. ${gl_bai}Dockerをインストールします${gl_kjlan}15. ${gl_bai}BBR3をインストールします${gl_kjlan}16. ${gl_bai}1G仮想メモリをセットアップします"
-	  echo -e "${gl_kjlan}17. ${gl_bai}タイムゾーンを上海に設定します${gl_kjlan}18. ${gl_bai}すべてのポートを開きます${gl_kjlan}51. ${gl_bai}カスタムコマンド"
+	  echo -e "${gl_kjlan}17. ${gl_bai}タイムゾーンを上海に設定します${gl_kjlan}18. ${gl_bai}すべてのポートを開きます${gl_kjlan}51. ${gl_bai}自定义指令"
 	  echo -e "${gl_kjlan}------------------------${gl_bai}"
 	  echo -e "${gl_kjlan}0.  ${gl_bai}メインメニューに戻ります"
 	  echo -e "${gl_kjlan}------------------------${gl_bai}"
@@ -12331,7 +12331,7 @@ while true; do
 
 	  case $sub_choice in
 		  1)
-			  send_stats "クラスターサーバーを追加します"
+			  send_stats "添加集群服务器"
 			  read -e -p "サーバー名：" server_name
 			  read -e -p "サーバーIP：" server_ip
 			  read -e -p "サーバーポート（22）：" server_port
@@ -12431,7 +12431,7 @@ echo "------------------------"
 echo -e "${gl_zi}Hostinger 52.7ドル年間米国1コア4Gメモリ50Gハードドライブ4Tトラフィック${gl_bai}"
 echo -e "${gl_bai}ウェブサイト：https：//cart.hostinger.com/pay/d83c51e9-0c28-47a6-8414-b8ab010ef94f?_ga=ga1.3.942352702.1711283207${gl_bai}"
 echo "------------------------"
-echo -e "${gl_huang}ブリックワーカー、四半期あたり49ドル、米国CN2GIA、日本ソフトバンク、2コア、1Gメモリ、20gハードドライブ、月あたり1Tトラフィック${gl_bai}"
+echo -e "${gl_huang}ブリックワーカー、四半期あたり49ドル、米国CN2GIA、日本ソフトバンク、2つのコア、1Gメモリ、20gハードドライブ、1か月あたり1Tトラフィック${gl_bai}"
 echo -e "${gl_bai}ウェブサイト：https：//bandwagonhost.com/aff.php?aff = 69004&pid=87${gl_bai}"
 echo "------------------------"
 echo -e "${gl_lan}dmit四半期あたり28ドルUS CN2GIA 1コア2Gメモリ20Gハードドライブ800gトラフィック${gl_bai}"
@@ -12473,7 +12473,7 @@ while true; do
 	clear
 	echo "ログを更新します"
 	echo "------------------------"
-	echo "すべてのログ：${gh_proxy}raw.githubusercontent.com/kejilion/sh/main/kejilion_sh_log.txt"
+	echo "全部日志: ${gh_proxy}raw.githubusercontent.com/kejilion/sh/main/kejilion_sh_log.txt"
 	echo "------------------------"
 
 	curl -s ${gh_proxy}raw.githubusercontent.com/kejilion/sh/main/kejilion_sh_log.txt | tail -n 30
