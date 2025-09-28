@@ -11483,7 +11483,7 @@ EOF
 								  (crontab -l ; echo "0 0 * * $weekday $newquest") | crontab - > /dev/null 2>&1
 								  ;;
 							  3)
-								  read -e -p "매일 작업을 수행 할시기를 선택 하시겠습니까? (시간, 0-23) :" hour
+								  read -e -p "매일 작업을 수행 할 시간을 선택하십시오. (시간, 0-23) :" hour
 								  (crontab -l ; echo "0 $hour * * * $newquest") | crontab - > /dev/null 2>&1
 								  ;;
 							  4)
@@ -11538,7 +11538,7 @@ EOF
 
 						  ;;
 					  2)
-						  read -e -p "삭제 해야하는 콘텐츠를 구문 분석하기위한 키워드를 입력하십시오." delhost
+						  read -e -p "삭제 해야하는 구문 분석 컨텐츠의 키워드를 입력하십시오." delhost
 						  sed -i "/$delhost/d" /etc/hosts
 						  send_stats "로컬 호스트 구문 분석 및 삭제"
 						  ;;
@@ -12191,7 +12191,7 @@ linux_file() {
 
 				# -r 옵션을 사용하여 디렉토리를 재귀 적으로 복사하십시오
 				cp -r "$src_path" "$dest_path" && echo "파일 또는 디렉토리가 복사되었습니다$dest_path" || echo "파일이나 디렉토리를 복사하지 못했습니다"
-				send_stats "파일 또는 디렉토리를 복사하십시오"
+				send_stats "파일 또는 디렉토리를 복사합니다"
 				;;
 
 

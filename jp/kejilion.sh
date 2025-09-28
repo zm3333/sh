@@ -5623,7 +5623,7 @@ create_backup() {
 	echo "- 単一のディレクトリをバックアップします： /var /www"
 	echo "- バックアップ複数のディレクトリ： /etc /home /var /log"
 	echo "-directEnterはデフォルトのディレクトリ（ /etc /usr /home）を使用します"
-	read -r -p "ディレクトリを入力してバックアップしてください（複数のディレクトリがスペースで区切られています。直接入力する場合は、デフォルトのディレクトリを使用してください）：" input
+	read -r -p "请输入要备份的目录（多个目录用空格分隔，直接回车则使用默认目录）：" input
 
 	# ユーザーがディレクトリを入力しない場合は、デフォルトのディレクトリを使用します
 	if [ -z "$input" ]; then
@@ -11483,7 +11483,7 @@ EOF
 								  (crontab -l ; echo "0 0 * * $weekday $newquest") | crontab - > /dev/null 2>&1
 								  ;;
 							  3)
-								  read -e -p "毎日タスクを実行する時期を選択しますか？ （時間、0-23）：" hour
+								  read -e -p "毎日タスクを実行する時間を選択しますか？ （時間、0-23）：" hour
 								  (crontab -l ; echo "0 $hour * * * $newquest") | crontab - > /dev/null 2>&1
 								  ;;
 							  4)
@@ -11538,7 +11538,7 @@ EOF
 
 						  ;;
 					  2)
-						  read -e -p "削除する必要があるコンテンツを解析するために、キーワードを入力してください。" delhost
+						  read -e -p "削除する必要があるコンテンツの解析のキーワードを入力してください。" delhost
 						  sed -i "/$delhost/d" /etc/hosts
 						  send_stats "ローカルホストの解析と削除"
 						  ;;
