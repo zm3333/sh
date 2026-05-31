@@ -114,7 +114,7 @@ CheckFirstRun_false() {
 # 사용자에게 약관에 동의하라는 메시지를 표시합니다.
 UserLicenseAgreement() {
 	clear
-	echo -e "${gl_kjlan}기술 사자 스크립트 도구 상자에 오신 것을 환영합니다${gl_bai}"
+	echo -e "${gl_kjlan}기술 사자 스크립트 도구 상자에 오신 것을 환영합니다.${gl_bai}"
 	echo "스크립트를 처음 사용하는 경우 사용자 라이센스 계약을 읽고 동의하십시오."
 	echo "사용자 라이센스 계약: https://blog.kejilion.pro/user-license-agreement/"
 	echo -e "----------------------"
@@ -1127,7 +1127,7 @@ iptables_panel() {
 		  echo "3. 모든 포트를 엽니다. 4. 모든 포트를 닫습니다."
 		  echo "------------------------"
 		  echo "5. IP 화이트리스트 6. IP 블랙리스트"
-		  echo "7. 지정된 IP 지우기"
+		  echo "7. 지정된 IP를 삭제합니다."
 		  echo "------------------------"
 		  echo "11. PING 허용 12. PING 비활성화"
 		  echo "------------------------"
@@ -1234,7 +1234,7 @@ iptables_panel() {
 				  ;;
 
 			  17)
-				  read -e -p "삭제된 국가 코드(예: CN, US, JP)를 입력하세요." country_code
+				  read -e -p "삭제할 국가 코드를 입력하세요(예: CN, US, JP):" country_code
 				  manage_country_rules unblock $country_code
 				  send_stats "명확한 국가$country_codeIP"
 				  ;;
@@ -2119,7 +2119,7 @@ web_security() {
 
 				  22)
 					  send_stats "고부하로 5초 쉴드 가능"
-					  echo -e "${gl_huang}웹사이트는 5분마다 자동으로 감지합니다. 높은 부하를 감지하면 자동으로 쉴드가 열리고, 낮은 부하가 감지되면 자동으로 5초 동안 쉴드가 닫힙니다.${gl_bai}"
+					  echo -e "${gl_huang}웹사이트는 5분마다 자동으로 감지합니다. 고부하를 감지하면 자동으로 실드를 열고, 저부하를 감지하면 자동으로 5초 동안 실드를 닫습니다.${gl_bai}"
 					  echo "--------------"
 					  echo "CF 매개변수 가져오기:"
 					  echo -e "cf 백엔드 오른쪽 상단에 있는 내 프로필로 이동하여 왼쪽에 있는 API 토큰을 선택하고${gl_huang}Global API Key${gl_bai}"
@@ -2444,7 +2444,7 @@ check_docker_image_update() {
 	local hub_info=$(curl -s "https://hub.docker.com/v2/repositories/$image_repo/tags/$image_tag")
 	local last_updated=$(echo "$hub_info" | jq -r '.last_updated' 2>/dev/null)
 
-	# 획득한 시간을 확인하세요.
+	# 획득한 시간을 확인
 	if [[ -n "$last_updated" && "$last_updated" != "null" ]]; then
 		local container_created_ts=$(date -d "$container_created" +%s 2>/dev/null)
 		local last_updated_ts=$(date -d "$last_updated" +%s 2>/dev/null)
@@ -2541,7 +2541,7 @@ clear_container_rules() {
 		iptables -D DOCKER-USER -p tcp -d "$container_ip" -j DROP
 	fi
 
-	# 지정된 IP를 허용하는 규칙을 지웁니다.
+	# 특정 IP를 허용하는 규칙 지우기
 	if iptables -C DOCKER-USER -p tcp -s "$allowed_ip" -d "$container_ip" -j ACCEPT &>/dev/null; then
 		iptables -D DOCKER-USER -p tcp -s "$allowed_ip" -d "$container_ip" -j ACCEPT
 	fi
@@ -2560,7 +2560,7 @@ clear_container_rules() {
 		iptables -D DOCKER-USER -p udp -d "$container_ip" -j DROP
 	fi
 
-	# 지정된 IP를 허용하는 규칙을 지웁니다.
+	# 특정 IP를 허용하는 규칙 지우기
 	if iptables -C DOCKER-USER -p udp -s "$allowed_ip" -d "$container_ip" -j ACCEPT &>/dev/null; then
 		iptables -D DOCKER-USER -p udp -s "$allowed_ip" -d "$container_ip" -j ACCEPT
 	fi
@@ -3173,16 +3173,16 @@ nginx_install_status() {
 
 ldnmp_web_on() {
 	  clear
-	  echo "당신의$webname지어졌습니다!"
+	  echo "당신의$webname건설되었습니다!"
 	  echo "https://$yuming"
 	  echo "------------------------"
-	  echo "$webname설치 정보는 다음과 같습니다."
+	  echo "$webname설치정보는 다음과 같습니다."
 
 }
 
 nginx_web_on() {
 	  clear
-	  echo "당신의$webname지어졌습니다!"
+	  echo "당신의$webname건설되었습니다!"
 	  echo "https://$yuming"
 
 }
@@ -3613,7 +3613,7 @@ EOF
 
 	donlond_frp frps
 
-	# 생성된 정보를 출력
+	# 생성된 정보 출력
 	ip_address
 	echo "------------------------"
 	echo "클라이언트 배포에 필요한 매개변수"
@@ -3675,7 +3675,7 @@ remote_port = ${remote_port}
 
 EOF
 
-	# 생성된 정보를 출력
+	# 생성된 정보 출력
 	echo "제공하다$service_namefrpc.toml에 성공적으로 추가되었습니다."
 
 	docker restart frpc
@@ -4427,7 +4427,7 @@ add_sshkey() {
 		   -e 's/^\s*#\?\s*ChallengeResponseAuthentication .*/ChallengeResponseAuthentication no/' /etc/ssh/sshd_config
 	rm -rf /etc/ssh/sshd_config.d/* /etc/ssh/ssh_config.d/*
 	restart_ssh
-	echo -e "${gl_lv}ROOT 개인키 로그인이 활성화되어 있고, ROOT 비밀번호 로그인이 비활성화되어 재접속이 적용됩니다.${gl_bai}"
+	echo -e "${gl_lv}ROOT 개인 키 로그인이 활성화되었습니다. ROOT 비밀번호 로그인이 비활성화되었습니다. 다시 연결이 적용됩니다.${gl_bai}"
 
 }
 
@@ -5054,7 +5054,7 @@ clamav_freshclam() {
 
 clamav_scan() {
 	if [ $# -eq 0 ]; then
-		echo "스캔할 디렉터리를 지정하세요."
+		echo "스캔할 디렉터리를 지정하십시오."
 		return
 	fi
 
@@ -5353,7 +5353,7 @@ Kernel_optimize() {
 			  cd ~
 			  clear
 			  optimize_web_server
-			  send_stats "웹사이트 최적화 모드"
+			  send_stats "웹사이트 최적화 모델"
 			  ;;
 		  4)
 			  cd ~
@@ -5800,7 +5800,7 @@ add_connection() {
 				if [[ -z "$line" && "$password_or_key" == *"-----BEGIN"* ]]; then
 					break
 				fi
-				# 첫 번째 줄이거나 이미 핵심 내용 입력을 시작했다면 계속해서 추가하세요.
+				# 첫 번째 줄이거나 이미 핵심 내용을 입력하기 시작했다면 계속해서 추가하세요.
 				if [[ -n "$line" || "$password_or_key" == *"-----BEGIN"* ]]; then
 					local password_or_key+="${line}"$'\n'
 				fi
@@ -6078,7 +6078,7 @@ disk_manager() {
 	send_stats "하드디스크 관리 기능"
 	while true; do
 		clear
-		echo "하드 드라이브 파티션 관리"
+		echo "하드 디스크 파티션 관리"
 		echo -e "${gl_huang}이 기능은 내부 테스트 중이므로 프로덕션 환경에서는 사용하면 안 됩니다.${gl_bai}"
 		echo "------------------------"
 		list_partitions
@@ -6148,7 +6148,7 @@ add_task() {
 				if [[ -z "$line" && "$password_or_key" == *"-----BEGIN"* ]]; then
 					break
 				fi
-				# 첫 번째 줄이거나 이미 핵심 내용 입력을 시작했다면 계속해서 추가하세요.
+				# 첫 번째 줄이거나 이미 핵심 내용을 입력하기 시작했다면 계속해서 추가하세요.
 				if [[ -n "$line" || "$password_or_key" == *"-----BEGIN"* ]]; then
 					password_or_key+="${line}"$'\n'
 				fi
@@ -7274,7 +7274,7 @@ linux_Oracle() {
 		  1)
 			  clear
 			  echo "활성 스크립트: CPU 사용량 10-20% 메모리 사용량 20%"
-			  read -e -p "설치하시겠습니까? (예/아니요):" choice
+			  read -e -p "정말로 설치하시겠습니까? (예/아니요):" choice
 			  case "$choice" in
 				[Yy])
 
@@ -7958,7 +7958,7 @@ linux_ldnmp() {
 	  echo "배포 시작$webname"
 	  add_yuming
 	  echo -e "도메인 이름 형식:${gl_huang}google.com${gl_bai}"
-	  read -e -p "역방향 프록시 도메인 이름을 입력하세요:" fandai_yuming
+	  read -e -p "역방향 프록시 도메인 이름을 입력하세요." fandai_yuming
 	  nginx_install_status
 	  install_ssltls
 	  certs_status
@@ -8458,7 +8458,7 @@ linux_panel() {
 	  echo -e "${gl_kjlan}67.  ${gl_bai}ddns-go 동적 DNS 관리 도구${gl_huang}★${gl_bai}            ${gl_kjlan}68.  ${gl_bai}AllinSSL 인증서 관리 플랫폼"
 	  echo -e "${gl_kjlan}69.  ${gl_bai}SFTPGo 파일 전송 도구${gl_kjlan}70.  ${gl_bai}AstrBot 챗봇 프레임워크"
 	  echo -e "${gl_kjlan}------------------------"
-	  echo -e "${gl_kjlan}71.  ${gl_bai}Navidrome 개인 음악 서버${gl_kjlan}72.  ${gl_bai}비트워든 비밀번호 관리자${gl_huang}★${gl_bai}"
+	  echo -e "${gl_kjlan}71.  ${gl_bai}Navidrome 개인 음악 서버${gl_kjlan}72.  ${gl_bai}비트워드 비밀번호 관리자${gl_huang}★${gl_bai}"
 	  echo -e "${gl_kjlan}73.  ${gl_bai}LibreTV 개인 영화${gl_kjlan}74.  ${gl_bai}MoonTV 개인 영화"
 	  echo -e "${gl_kjlan}75.  ${gl_bai}멜로디 음악 마법사${gl_kjlan}76.  ${gl_bai}온라인 DOS 오래된 게임"
 	  echo -e "${gl_kjlan}77.  ${gl_bai}Thunder 오프라인 다운로드 도구${gl_kjlan}78.  ${gl_bai}PandaWiki 지능형 문서 관리 시스템"
@@ -8642,14 +8642,14 @@ linux_panel() {
 			  ;;
 		  7)
 			clear
-			send_stats "나타 빌드"
+			send_stats "네자 빌드"
 			local docker_name="nezha-dashboard"
 			local docker_port=8008
 			while true; do
 				check_docker_app
 				check_docker_image_update $docker_name
 				clear
-				echo -e "나타 모니터링$check_docker $update_status"
+				echo -e "네자 모니터링$check_docker $update_status"
 				echo "오픈 소스, 가볍고 사용하기 쉬운 서버 모니터링 및 운영 및 유지 관리 도구"
 				echo "공식 웹사이트 구축 문서: https://nezha.wiki/guide/dashboard.html"
 				if docker inspect "$docker_name" &>/dev/null; then
@@ -8758,7 +8758,7 @@ linux_panel() {
 				case $choice in
 					1)
 						check_disk_space 2
-						read -e -p "이메일 도메인 이름을 설정하십시오(예: mail.yuming.com):" yuming
+						read -e -p "이메일 도메인 이름을 설정하세요(예: mail.yuming.com):" yuming
 						mkdir -p /home/docker
 						echo "$yuming" > /home/docker/mail.txt
 						echo "------------------------"
@@ -10833,10 +10833,10 @@ linux_Settings() {
 	  echo -e "시스템 도구"
 	  echo -e "${gl_kjlan}------------------------"
 	  echo -e "${gl_kjlan}1.   ${gl_bai}스크립트 시작 단축키 설정${gl_kjlan}2.   ${gl_bai}로그인 비밀번호 변경"
-	  echo -e "${gl_kjlan}3.   ${gl_bai}ROOT 비밀번호 로그인 모드${gl_kjlan}4.   ${gl_bai}지정된 버전의 Python 설치"
+	  echo -e "${gl_kjlan}3.   ${gl_bai}ROOT 비밀번호 로그인 모드${gl_kjlan}4.   ${gl_bai}지정된 Python 버전을 설치합니다."
 	  echo -e "${gl_kjlan}5.   ${gl_bai}모든 포트 열기${gl_kjlan}6.   ${gl_bai}SSH 연결 포트 수정"
 	  echo -e "${gl_kjlan}7.   ${gl_bai}DNS 주소 최적화${gl_kjlan}8.   ${gl_bai}한 번의 클릭으로 시스템을 다시 설치${gl_huang}★${gl_bai}"
-	  echo -e "${gl_kjlan}9.   ${gl_bai}ROOT 계정을 비활성화하고 새 계정을 만듭니다.${gl_kjlan}10.  ${gl_bai}우선순위 ipv4/ipv6 전환"
+	  echo -e "${gl_kjlan}9.   ${gl_bai}ROOT 계정을 비활성화하고 새 계정을 만듭니다.${gl_kjlan}10.  ${gl_bai}우선 순위 ipv4/ipv6 전환"
 	  echo -e "${gl_kjlan}------------------------"
 	  echo -e "${gl_kjlan}11.  ${gl_bai}항만점유현황 확인${gl_kjlan}12.  ${gl_bai}가상 메모리 크기 수정"
 	  echo -e "${gl_kjlan}13.  ${gl_bai}사용자 관리${gl_kjlan}14.  ${gl_bai}사용자/비밀번호 생성기"
@@ -10846,7 +10846,7 @@ linux_Settings() {
 	  echo -e "${gl_kjlan}------------------------"
 	  echo -e "${gl_kjlan}21.  ${gl_bai}기본 호스트 확인${gl_kjlan}22.  ${gl_bai}SSH 방어 프로그램"
 	  echo -e "${gl_kjlan}23.  ${gl_bai}전류 제한 자동 종료${gl_kjlan}24.  ${gl_bai}ROOT 개인 키 로그인 모드"
-	  echo -e "${gl_kjlan}25.  ${gl_bai}TG-bot 시스템 모니터링 및 조기 경보${gl_kjlan}26.  ${gl_bai}OpenSSH 고위험 취약점 복구(Xiuyuan)"
+	  echo -e "${gl_kjlan}25.  ${gl_bai}TG-bot 시스템 모니터링 및 조기경보${gl_kjlan}26.  ${gl_bai}OpenSSH 고위험 취약점 복구(Xiuyuan)"
 	  echo -e "${gl_kjlan}27.  ${gl_bai}Red Hat Linux 커널 업그레이드${gl_kjlan}28.  ${gl_bai}Linux 시스템 커널 매개변수 최적화${gl_huang}★${gl_bai}"
 	  echo -e "${gl_kjlan}29.  ${gl_bai}바이러스 검사 도구${gl_huang}★${gl_bai}                     ${gl_kjlan}30.  ${gl_bai}파일 관리자"
 	  echo -e "${gl_kjlan}------------------------"
@@ -11131,7 +11131,7 @@ EOF
 
 				case "$choice" in
 				  1)
-					send_stats "1G 가상 메모리가 설정되었습니다"
+					send_stats "1G 가상 메모리가 설정되었습니다."
 					add_swap 1024
 
 					;;
@@ -11297,7 +11297,7 @@ EOF
 				# 현재 시스템 시간대 가져오기
 				local timezone=$(current_timezone)
 
-				# 현재 시스템 시간을 가져옵니다
+				# 현재 시스템 시간 가져오기
 				local current_time=$(date +"%Y-%m-%d %H:%M:%S")
 
 				# 시간대 및 시간 표시
@@ -11317,7 +11317,7 @@ EOF
 				echo "유럽"
 				echo "11. 영국 런던 시간 12. 프랑스 파리 시간"
 				echo "13. 독일 베를린 시간 14. 러시아 모스크바 시간"
-				echo "15. 네덜란드 유트라흐트 시간 16. 스페인 마드리드 시간"
+				echo "15. 네덜란드 위트라흐트 시간 16. 스페인 마드리드 시간"
 				echo "------------------------"
 				echo "미국"
 				echo "21. 미국 서부 시간 22. 미국 동부 시간"
@@ -11385,7 +11385,7 @@ EOF
 					  echo "$new_hostname" > /etc/hostname
 					  hostname "$new_hostname"
 				  else
-					  # Debian, Ubuntu, CentOS 등과 같은 다른 시스템
+					  # Debian, Ubuntu, CentOS 등과 같은 기타 시스템
 					  hostnamectl set-hostname "$new_hostname"
 					  sed -i "s/$current_hostname/$new_hostname/g" /etc/hostname
 					  systemctl restart systemd-hostnamed
@@ -11475,7 +11475,7 @@ EOF
 
 						  case $dingshi in
 							  1)
-								  read -e -p "작업을 실행하기로 선택한 달의 날짜는 무엇입니까? (1-30):" day
+								  read -e -p "작업을 실행하기로 선택한 날은 언제입니까? (1-30):" day
 								  (crontab -l ; echo "0 0 $day * * $newquest") | crontab - > /dev/null 2>&1
 								  ;;
 							  2)
@@ -11647,7 +11647,7 @@ EOF
 				case "$Limiting" in
 				  1)
 					# 새 가상 메모리 크기 입력
-					echo "실제 서버의 트래픽이 100G만 있는 경우 임계값을 95G로 설정하고 미리 종료하여 트래픽 오류나 오버플로를 방지할 수 있습니다."
+					echo "실제 서버에 트래픽이 100G만 있는 경우 임계값을 95G로 설정하고 미리 종료하여 트래픽 오류나 오버플로를 방지할 수 있습니다."
 					read -e -p "인바운드 트래픽 임계값을 입력하십시오(단위는 G, 기본값은 100G)." rx_threshold_gb
 					rx_threshold_gb=${rx_threshold_gb:-100}
 					read -e -p "아웃바운드 트래픽 임계값을 입력하십시오(단위는 G, 기본값은 100G)." tx_threshold_gb
@@ -11737,7 +11737,7 @@ EOF
 			  root_use
 			  send_stats "전신 경고"
 			  echo "TG-bot 모니터링 및 조기경보 기능"
-			  echo "영상소개: https://youtu.be/vLL-eb3Z_TY"
+			  echo "영상 소개: https://youtu.be/vLL-eb3Z_TY"
 			  echo "------------------------------------------------"
 			  echo "로컬 CPU, 메모리, 하드 디스크, 트래픽 및 SSH 로그인에 대한 실시간 모니터링 및 경고를 달성하려면 경고를 수신하도록 tg 로봇 API 및 사용자 ID를 구성해야 합니다."
 			  echo "임계값에 도달하면 경고 메시지가 사용자에게 전송됩니다."
@@ -11871,7 +11871,7 @@ EOF
 			  echo "2. 시스템 정크 파일 정리"
 			  echo -e "3. 가상 메모리 설정${gl_huang}1G${gl_bai}"
 			  echo -e "4. SSH 포트 번호를 다음으로 설정합니다.${gl_huang}5522${gl_bai}"
-			  echo -e "5. 모든 포트를 엽니다."
+			  echo -e "5. 모든 포트를 엽니다"
 			  echo -e "6. 켜기${gl_huang}BBR${gl_bai}가속하다"
 			  echo -e "7. 시간대를 다음으로 설정합니다.${gl_huang}상하이${gl_bai}"
 			  echo -e "8. DNS 주소 자동 최적화${gl_huang}해외: 1.1.1.1 8.8.8.8 국내: 223.5.5.5${gl_bai}"
@@ -12281,7 +12281,7 @@ run_commands_on_servers() {
 	# 추출된 정보를 배열로 변환
 	IFS=$'\n' read -r -d '' -a SERVER_ARRAY <<< "$SERVERS"
 
-	# 서버를 탐색하고 명령을 실행합니다.
+	# 서버를 순회하고 명령을 실행합니다.
 	for ((i=0; i<${#SERVER_ARRAY[@]}; i+=5)); do
 		local name=${SERVER_ARRAY[i]}
 		local hostname=${SERVER_ARRAY[i+1]}
@@ -12289,7 +12289,7 @@ run_commands_on_servers() {
 		local username=${SERVER_ARRAY[i+3]}
 		local password=${SERVER_ARRAY[i+4]}
 		echo
-		echo -e "${gl_huang}연결 대상$name ($hostname)...${gl_bai}"
+		echo -e "${gl_huang}연결하다$name ($hostname)...${gl_bai}"
 		# sshpass -p "$password" ssh -o StrictHostKeyChecking=no "$username@$hostname" -p "$port" "$1"
 		sshpass -p "$password" ssh -t -o StrictHostKeyChecking=no "$username@$hostname" -p "$port" "$1"
 	done
@@ -12364,7 +12364,7 @@ while true; do
 		  5)
 			  clear
 			  send_stats "클러스터 복원"
-			  echo "귀하의 server.py를 업로드하고 업로드를 시작하려면 아무 키나 누르십시오!"
+			  echo "server.py를 업로드하고 아무 키나 눌러 업로드를 시작하세요!"
 			  echo -e "업로드해주세요${gl_huang}servers.py${gl_bai}파일을 제출하다${gl_huang}/root/cluster/${gl_bai}복원 완료!"
 			  break_end
 			  ;;
@@ -12437,10 +12437,10 @@ echo "------------------------"
 echo -e "${gl_lan}DMIT 분기당 $28 US CN2GIA 1 코어 2G 메모리 20G 하드 드라이브 월별 800G 트래픽${gl_bai}"
 echo -e "${gl_bai}URL: https://www.dmit.io/aff.php?aff=4966&pid=100${gl_bai}"
 echo "------------------------"
-echo -e "${gl_zi}V.PS 월 6.9달러 도쿄 소프트뱅크 2코어 1G 메모리 20G 하드드라이브 월 1T 트래픽${gl_bai}"
+echo -e "${gl_zi}V.PS 월 6.9달러 도쿄 소프트뱅크 2코어 1G 메모리 20G 하드 드라이브 월 1T 트래픽${gl_bai}"
 echo -e "${gl_bai}URL: https://vps.hosting/cart/tokyo-cloud-kvm-vps/?id=148&?affid=1355&?affid=1355${gl_bai}"
 echo "------------------------"
-echo -e "${gl_kjlan}더 인기 있는 VPS 거래${gl_bai}"
+echo -e "${gl_kjlan}더 인기 있는 VPS 혜택${gl_bai}"
 echo -e "${gl_bai}홈페이지: https://kejilion.pro/topvps/${gl_bai}"
 echo "------------------------"
 echo ""
@@ -12658,11 +12658,11 @@ echo "도커 컨테이너 관리 k 도커 ps |k 도커 컨테이너"
 echo "도커 이미지 관리 k docker img |k 도커 이미지"
 echo "LDNMP 사이트 관리 k web"
 echo "LDNMP 캐시 정리 k 웹 캐시"
-echo "WordPress k wp 설치 | k 워드프레스 | k wp xxx.com"
+echo "WordPress k wp 설치 | k 워드프레스 | kwp xxx.com"
 echo "역방향 프록시 설치 k fd |k rp |k 역방향 프록시 |k fd xxx.com"
 echo "로드 밸런싱 설치 k loadbalance |k 로드 밸런싱"
 echo "방화벽 패널 k fhq |k 방화벽"
-echo "포트 k 열기 DKdk 8080 |k 포트 8080 열기"
+echo "열린 포트 k ddk 8080 |k 열린 포트 8080"
 echo "k 포트 닫기 gbdk 7800 |k 포트 7800 닫기"
 echo "릴리스 IP k fxip 127.0.0.0/8 |k 릴리스 IP 127.0.0.0/8"
 echo "IP 차단 k zzip 177.5.25.36 |k IP 177.5.25.36 차단"

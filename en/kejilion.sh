@@ -911,7 +911,7 @@ close_port() {
 		iptables -D INPUT -p tcp --dport $port -j ACCEPT 2>/dev/null
 		iptables -D INPUT -p udp --dport $port -j ACCEPT 2>/dev/null
 
-		# Add a shutdown rule
+		# Add shutdown rule
 		if ! iptables -C INPUT -p tcp --dport $port -j DROP 2>/dev/null; then
 			iptables -I INPUT 1 -p tcp --dport $port -j DROP
 		fi
@@ -1234,7 +1234,7 @@ iptables_panel() {
 				  ;;
 
 			  17)
-				  read -e -p "Please enter the cleared country code (e.g. CN, US, JP):" country_code
+				  read -e -p "Please enter the country code to clear (e.g. CN, US, JP):" country_code
 				  manage_country_rules unblock $country_code
 				  send_stats "clear country$country_codeIP"
 				  ;;
@@ -2122,7 +2122,7 @@ web_security() {
 					  echo -e "${gl_huang}The website automatically detects every 5 minutes. When it detects high load, it will automatically open the shield, and when it detects low load, it will automatically close the shield for 5 seconds.${gl_bai}"
 					  echo "--------------"
 					  echo "Get CF parameters:"
-					  echo -e "Go to my profile in the upper right corner of the cf backend, select the API token on the left, and get${gl_huang}Global API Key${gl_bai}"
+					  echo -e "Go to my profile in the upper right corner of the cf backend, select the API token on the left, and obtain${gl_huang}Global API Key${gl_bai}"
 					  echo -e "Go to the bottom right of the cf backend domain name summary page to get it${gl_huang}Area ID${gl_bai}"
 					  echo "https://dash.cloudflare.com/login"
 					  echo "--------------"
@@ -2541,7 +2541,7 @@ clear_container_rules() {
 		iptables -D DOCKER-USER -p tcp -d "$container_ip" -j DROP
 	fi
 
-	# Clear the rules that allow the specified IP
+	# Clear the rules that allow specified IPs
 	if iptables -C DOCKER-USER -p tcp -s "$allowed_ip" -d "$container_ip" -j ACCEPT &>/dev/null; then
 		iptables -D DOCKER-USER -p tcp -s "$allowed_ip" -d "$container_ip" -j ACCEPT
 	fi
@@ -2560,7 +2560,7 @@ clear_container_rules() {
 		iptables -D DOCKER-USER -p udp -d "$container_ip" -j DROP
 	fi
 
-	# Clear the rules that allow the specified IP
+	# Clear the rules that allow specified IPs
 	if iptables -C DOCKER-USER -p udp -s "$allowed_ip" -d "$container_ip" -j ACCEPT &>/dev/null; then
 		iptables -D DOCKER-USER -p udp -s "$allowed_ip" -d "$container_ip" -j ACCEPT
 	fi
@@ -4427,7 +4427,7 @@ add_sshkey() {
 		   -e 's/^\s*#\?\s*ChallengeResponseAuthentication .*/ChallengeResponseAuthentication no/' /etc/ssh/sshd_config
 	rm -rf /etc/ssh/sshd_config.d/* /etc/ssh/ssh_config.d/*
 	restart_ssh
-	echo -e "${gl_lv}ROOT private key login has been turned on, ROOT password login has been turned off, and reconnection will take effect.${gl_bai}"
+	echo -e "${gl_lv}ROOT private key login has been turned on, ROOT password login has been turned off, reconnection will take effect${gl_bai}"
 
 }
 
@@ -4470,7 +4470,7 @@ sed -i 's/^\s*#\?\s*PermitRootLogin.*/PermitRootLogin yes/g' /etc/ssh/sshd_confi
 sed -i 's/^\s*#\?\s*PasswordAuthentication.*/PasswordAuthentication yes/g' /etc/ssh/sshd_config;
 rm -rf /etc/ssh/sshd_config.d/* /etc/ssh/ssh_config.d/*
 restart_ssh
-echo -e "${gl_lv}ROOT login setup is complete!${gl_bai}"
+echo -e "${gl_lv}ROOT login setup is completed!${gl_bai}"
 
 }
 
@@ -4743,7 +4743,7 @@ dd_xitong() {
 
 
 			  41)
-				send_stats "Reinstall windows 11"
+				send_stats "Reinstall Windows 11"
 				dd_xitong_2
 				bash InstallNET.sh -windows 11 -lang "cn"
 				reboot
@@ -5274,7 +5274,7 @@ restore_defaults() {
 
 # Website building optimization function
 optimize_web_server() {
-	echo -e "${gl_lv}Switch to website construction optimization mode...${gl_bai}"
+	echo -e "${gl_lv}Switch to website building optimization mode...${gl_bai}"
 
 	echo -e "${gl_lv}Optimize file descriptors...${gl_bai}"
 	ulimit -n 65535
@@ -5353,7 +5353,7 @@ Kernel_optimize() {
 			  cd ~
 			  clear
 			  optimize_web_server
-			  send_stats "Website optimization mode"
+			  send_stats "Website optimization model"
 			  ;;
 		  4)
 			  cd ~
@@ -5800,7 +5800,7 @@ add_connection() {
 				if [[ -z "$line" && "$password_or_key" == *"-----BEGIN"* ]]; then
 					break
 				fi
-				# If it is the first line or you have already started entering the key content, continue adding
+				# If it is the first line or you have already started to enter the key content, continue adding
 				if [[ -n "$line" || "$password_or_key" == *"-----BEGIN"* ]]; then
 					local password_or_key+="${line}"$'\n'
 				fi
@@ -6078,7 +6078,7 @@ disk_manager() {
 	send_stats "Hard disk management function"
 	while true; do
 		clear
-		echo "Hard drive partition management"
+		echo "Hard disk partition management"
 		echo -e "${gl_huang}This feature is under internal testing and should not be used in a production environment.${gl_bai}"
 		echo "------------------------"
 		list_partitions
@@ -6148,7 +6148,7 @@ add_task() {
 				if [[ -z "$line" && "$password_or_key" == *"-----BEGIN"* ]]; then
 					break
 				fi
-				# If it is the first line or you have already started entering the key content, continue adding
+				# If it is the first line or you have already started to enter the key content, continue adding
 				if [[ -n "$line" || "$password_or_key" == *"-----BEGIN"* ]]; then
 					password_or_key+="${line}"$'\n'
 				fi
@@ -7468,7 +7468,7 @@ linux_ldnmp() {
 	echo -e "${gl_huang}------------------------"
 	echo -e "${gl_huang}21.  ${gl_bai}Only install nginx${gl_huang}★${gl_bai}                     ${gl_huang}22.  ${gl_bai}site redirect"
 	echo -e "${gl_huang}23.  ${gl_bai}Site reverse proxy-IP+port${gl_huang}★${gl_bai}            ${gl_huang}24.  ${gl_bai}Site reverse proxy-domain name"
-	echo -e "${gl_huang}25.  ${gl_bai}安装Bitwarden密码管理平台         ${gl_huang}26.  ${gl_bai}Install Halo Blog Site"
+	echo -e "${gl_huang}25.  ${gl_bai}Install Bitwarden Password Management Platform${gl_huang}26.  ${gl_bai}Install Halo Blog Site"
 	echo -e "${gl_huang}27.  ${gl_bai}Install the AI ​​painting prompt word generator${gl_huang}28.  ${gl_bai}Site reverse proxy-load balancing"
 	echo -e "${gl_huang}30.  ${gl_bai}Custom static site"
 	echo -e "${gl_huang}------------------------"
@@ -10541,7 +10541,7 @@ linux_panel() {
 
 			docker_rum() {
 
-				read -e -p "set up${docker_name}Login username:" app_use
+				read -e -p "set up${docker_name}Login user name:" app_use
 				read -e -p "set up${docker_name}Login password:" app_passwd
 
 				docker run -d \
@@ -11238,7 +11238,7 @@ EOF
 
 		  14)
 			clear
-			send_stats "用户信息生成器"
+			send_stats "User information generator"
 			echo "random username"
 			echo "------------------------"
 			for i in {1..5}; do
@@ -11247,7 +11247,7 @@ EOF
 			done
 
 			echo ""
-			echo "随机姓名"
+			echo "random name"
 			echo "------------------------"
 			local first_names=("John" "Jane" "Michael" "Emily" "David" "Sophia" "William" "Olivia" "James" "Emma" "Ava" "Liam" "Mia" "Noah" "Isabella")
 			local last_names=("Smith" "Johnson" "Brown" "Davis" "Wilson" "Miller" "Jones" "Garcia" "Martinez" "Williams" "Lee" "Gonzalez" "Rodriguez" "Hernandez")
@@ -12289,7 +12289,7 @@ run_commands_on_servers() {
 		local username=${SERVER_ARRAY[i+3]}
 		local password=${SERVER_ARRAY[i+4]}
 		echo
-		echo -e "${gl_huang}Connect to$name ($hostname)...${gl_bai}"
+		echo -e "${gl_huang}connect to$name ($hostname)...${gl_bai}"
 		# sshpass -p "$password" ssh -o StrictHostKeyChecking=no "$username@$hostname" -p "$port" "$1"
 		sshpass -p "$password" ssh -t -o StrictHostKeyChecking=no "$username@$hostname" -p "$port" "$1"
 	done
@@ -12440,7 +12440,7 @@ echo "------------------------"
 echo -e "${gl_zi}V.PS 6.9 dollars per month Tokyo Softbank 2 cores 1G memory 20G hard drive 1T traffic per month${gl_bai}"
 echo -e "${gl_bai}URL: https://vps.hosting/cart/tokyo-cloud-kvm-vps/?id=148&?affid=1355&?affid=1355${gl_bai}"
 echo "------------------------"
-echo -e "${gl_kjlan}More popular VPS deals${gl_bai}"
+echo -e "${gl_kjlan}More popular VPS offers${gl_bai}"
 echo -e "${gl_bai}Website: https://kejilion.pro/topvps/${gl_bai}"
 echo "------------------------"
 echo ""
