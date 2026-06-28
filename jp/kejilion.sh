@@ -59,7 +59,7 @@ CheckFirstRun_true() {
 
 # この機能は、機能の埋め込み情報を収集し、現在のスクリプトのバージョン番号、使用時間、システム バージョン、CPU アーキテクチャ、マシンの国、およびユーザーが使用した機能名を記録します。機密情報は含まれませんので、ご安心ください。信じてください！
 # なぜこの機能が設計されたのでしょうか?その目的は、ユーザーが使いたい機能をより深く理解し、機能をさらに最適化し、ユーザーのニーズを満たす機能をさらに投入することです。
-# send_stats 関数の呼び出し位置を全文検索できます。これは透明性があり、オープンソースです。ご心配な場合はご利用をお断りすることも可能です。
+# send_stats 関数の呼び出し位置を全文検索できます。これは透明性があり、オープンソースです。ご不安がある場合はご利用をお断りすることも可能です。
 
 
 
@@ -888,12 +888,12 @@ open_port() {
 
 		if ! iptables -C INPUT -p udp --dport $port -j ACCEPT 2>/dev/null; then
 			iptables -I INPUT 1 -p udp --dport $port -j ACCEPT
-			echo "ポートがオープンしました$port"
+			echo "ポートがオープンされました$port"
 		fi
 	done
 
 	save_iptables_rules
-	send_stats "ポートがオープンしました"
+	send_stats "ポートがオープンされました"
 }
 
 
@@ -4818,7 +4818,7 @@ bbrv3() {
 				  clear
 				  local kernel_version=$(uname -r)
 				  echo "xanmod の BBRv3 カーネルがインストールされている"
-				  echo "現在のカーネルのバージョン:$kernel_version"
+				  echo "現在のカーネル バージョン:$kernel_version"
 
 				  echo ""
 				  echo "カーネル管理"
@@ -4977,7 +4977,7 @@ elrepo() {
 				  clear
 				  kernel_version=$(uname -r)
 				  echo "elrepo カーネルがインストールされています"
-				  echo "現在のカーネルのバージョン:$kernel_version"
+				  echo "現在のカーネル バージョン:$kernel_version"
 
 				  echo ""
 				  echo "カーネル管理"
@@ -5131,7 +5131,7 @@ clamav() {
 						;;
 					3)
 					  send_stats "カスタムディレクトリスキャン"
-					  read -e -p "スキャンするディレクトリをスペースで区切って入力してください (例: /etc /var /usr /home /root):" directories
+					  read -e -p "スキャンするディレクトリをスペースで区切って入力してください (例: /etc /var /usr /home /root)。" directories
 					  install_docker
 					  clamav_freshclam
 					  clamav_scan $directories
@@ -5745,7 +5745,7 @@ linux_backup() {
 			3) delete_backup ;;
 			*) break ;;
 		esac
-		read -e -p "Enter を押して続行します..."
+		read -e -p "続行するには Enter キーを押してください..."
 	done
 }
 
@@ -6078,7 +6078,7 @@ disk_manager() {
 	send_stats "ハードディスク管理機能"
 	while true; do
 		clear
-		echo "ハードディスクのパーティション管理"
+		echo "ハードドライブのパーティション管理"
 		echo -e "${gl_huang}この機能は内部テスト中であるため、運用環境では使用しないでください。${gl_bai}"
 		echo "------------------------"
 		list_partitions
@@ -6097,7 +6097,7 @@ disk_manager() {
 			5) check_partition ;;
 			*) break ;;
 		esac
-		read -e -p "Enter を押して続行します..."
+		read -e -p "続行するには Enter キーを押してください..."
 	done
 }
 
@@ -6126,7 +6126,7 @@ add_task() {
 	read -e -p "ローカル ディレクトリを入力してください:" local_path
 	read -e -p "リモート ディレクトリを入力してください:" remote_path
 	read -e -p "リモート ユーザー@IP を入力してください:" remote
-	read -e -p "SSH ポートを入力してください (デフォルトは 22):" port
+	read -e -p "SSH ポート (デフォルトは 22) を入力してください:" port
 	port=${port:-22}
 
 	echo "認証方法を選択してください:"
@@ -6384,7 +6384,7 @@ rsync_manager() {
 			0) break ;;
 			*) echo "選択が無効です。もう一度お試しください。" ;;
 		esac
-		read -e -p "Enter を押して続行します..."
+		read -e -p "続行するには Enter キーを押してください..."
 	done
 }
 
@@ -7650,7 +7650,7 @@ linux_ldnmp() {
 	  echo "パスワード: 管理者"
 	  echo "------------------------"
 	  echo "ログイン時に右上隅に赤色の error0 が表示される場合は、次のコマンドを使用してください。"
-	  echo "私も、なぜユニコーンナンバーカードがこんなに面倒で、問題が多いのか、とても腹が立っています。"
+	  echo "私も、なぜユニコーンナンバーカードがこんなに面倒で、こんな問題を抱えているのか、とても腹が立っています。"
 	  echo "sed -i 's/ADMIN_HTTPS=false/ADMIN_HTTPS=true/g' /home/web/html/$yuming/dujiaoka/.env"
 
 		;;
@@ -8418,7 +8418,7 @@ linux_panel() {
 	  echo -e "${gl_kjlan}------------------------"
 	  echo -e "${gl_kjlan}1.   ${gl_bai}パゴダパネル正式版${gl_kjlan}2.   ${gl_bai}aaPanel パゴダ国際版"
 	  echo -e "${gl_kjlan}3.   ${gl_bai}1Panel 新世代管理パネル${gl_kjlan}4.   ${gl_bai}NginxProxyManager 視覚化パネル"
-	  echo -e "${gl_kjlan}5.   ${gl_bai}OpenList マルチストア ファイル リスト プログラム${gl_kjlan}6.   ${gl_bai}Ubuntu リモート デスクトップ Web バージョン"
+	  echo -e "${gl_kjlan}5.   ${gl_bai}OpenList マルチストア ファイル リスト プログラム${gl_kjlan}6.   ${gl_bai}Ubuntu リモート デスクトップ Web エディション"
 	  echo -e "${gl_kjlan}7.   ${gl_bai}Nezha Probe VPS 監視パネル${gl_kjlan}8.   ${gl_bai}QBオフラインBT磁気ダウンロードパネル"
 	  echo -e "${gl_kjlan}9.   ${gl_bai}Poste.io メール サーバー プログラム${gl_kjlan}10.  ${gl_bai}RocketChat 複数人オンライン チャット システム"
 	  echo -e "${gl_kjlan}------------------------"
@@ -8456,7 +8456,7 @@ linux_panel() {
 	  echo -e "${gl_kjlan}63.  ${gl_bai}OpenWebUI セルフホスト型 AI プラットフォーム${gl_huang}★${gl_bai}             ${gl_kjlan}64.  ${gl_bai}ITツールツールボックス"
 	  echo -e "${gl_kjlan}65.  ${gl_bai}n8n自動ワークフロープラットフォーム${gl_huang}★${gl_bai}               ${gl_kjlan}66.  ${gl_bai}yt-dlp ビデオ ダウンロード ツール"
 	  echo -e "${gl_kjlan}67.  ${gl_bai}ddns-go ダイナミック DNS 管理ツール${gl_huang}★${gl_bai}            ${gl_kjlan}68.  ${gl_bai}AllinSSL 証明書管理プラットフォーム"
-	  echo -e "${gl_kjlan}69.  ${gl_bai}SFTPGo ファイル転送ツール${gl_kjlan}70.  ${gl_bai}AstBot チャットボット フレームワーク"
+	  echo -e "${gl_kjlan}69.  ${gl_bai}SFTPGo ファイル転送ツール${gl_kjlan}70.  ${gl_bai}AstrBot チャットボット フレームワーク"
 	  echo -e "${gl_kjlan}------------------------"
 	  echo -e "${gl_kjlan}71.  ${gl_bai}Navidrome プライベート ミュージック サーバー${gl_kjlan}72.  ${gl_bai}bitwarden パスワードマネージャー${gl_huang}★${gl_bai}"
 	  echo -e "${gl_kjlan}73.  ${gl_bai}LibreTV プライベートムービー${gl_kjlan}74.  ${gl_bai}MoonTV のプライベート ムービー"
@@ -8649,7 +8649,7 @@ linux_panel() {
 				check_docker_app
 				check_docker_image_update $docker_name
 				clear
-				echo -e "ネザ監視$check_docker $update_status"
+				echo -e "ネザモニタリング$check_docker $update_status"
 				echo "オープンソースの軽量で使いやすいサーバー監視および運用保守ツール"
 				echo "公式 Web サイト構築ドキュメント: https://nezha.wiki/guide/dashboard.html"
 				if docker inspect "$docker_name" &>/dev/null; then
@@ -8658,7 +8658,7 @@ linux_panel() {
 				fi
 				echo ""
 				echo "------------------------"
-				echo "1. 使用する"
+				echo "1. 使用方法"
 				echo "------------------------"
 				echo "0. 前のメニューに戻る"
 				echo "------------------------"
@@ -10643,7 +10643,7 @@ linux_work() {
 	  send_stats "バックエンドワークスペース"
 	  echo -e "バックエンドワークスペース"
 	  echo -e "システムは、バックグラウンドで永続的に実行できるワークスペースを提供し、長期的なタスクを実行するために使用できます。"
-	  echo -e "SSH を切断しても、ワークスペース内のタスクは中断されず、バックグラウンド タスクは継続されます。"
+	  echo -e "SSH を切断しても、ワークスペース内のタスクは中断されず、タスクはバックグラウンドで残ります。"
 	  echo -e "${gl_huang}ヒント：${gl_bai}ワークスペースに入ったら、Ctrl+b を使用し、次に d を単独で押してワークスペースを終了します。"
 	  echo -e "${gl_kjlan}------------------------"
 	  echo "現在存在するワークスペースのリスト"
@@ -10789,7 +10789,7 @@ linux_work() {
 
 
 		  23)
-			  read -e -p "バックグラウンドで実行するコマンドを入力してください (例:curl -fsSL https://get.docker.com | )し:" tmuxd
+			  read -e -p "バックグラウンドで実行するコマンドを入力してください。たとえば、curl -fsSL https://get.docker.com |し:" tmuxd
 			  tmux_run_d
 			  send_stats "バックグラウンドワークスペースにコマンドを挿入する"
 			  ;;
@@ -11087,8 +11087,8 @@ EOF
 						;;
 					2)
 						sysctl -w net.ipv6.conf.all.disable_ipv6=0 > /dev/null 2>&1
-						echo "最初にIPv6に切り替えました"
-						send_stats "最初にIPv6に切り替えました"
+						echo "IPv6優先に切り替えました"
+						send_stats "IPv6優先に切り替えました"
 						;;
 
 					3)
@@ -12162,7 +12162,7 @@ linux_file() {
 					continue
 				fi
 
-				read -e -p "宛先パス (新しいファイル名またはディレクトリ名を含む) を入力してください:" dest_path
+				read -e -p "宛先パス (新しいファイルまたはディレクトリ名を含む) を入力してください:" dest_path
 				if [ -z "$dest_path" ]; then
 					echo "エラー: 宛先パスを入力してください。"
 					send_stats "ファイルまたはディレクトリの移動に失敗しました: 宛先パスが指定されていません"
@@ -12182,7 +12182,7 @@ linux_file() {
 					continue
 				fi
 
-				read -e -p "宛先パス (新しいファイル名またはディレクトリ名を含む) を入力してください:" dest_path
+				read -e -p "宛先パス (新しいファイルまたはディレクトリ名を含む) を入力してください:" dest_path
 				if [ -z "$dest_path" ]; then
 					echo "エラー: 宛先パスを入力してください。"
 					send_stats "ファイルまたはディレクトリのコピーに失敗しました: 宛先パスが指定されていません"
@@ -12318,7 +12318,7 @@ while true; do
 	  echo -e "${gl_kjlan}------------------------${gl_bai}"
 	  echo -e "${gl_kjlan}サーバーリスト管理${gl_bai}"
 	  echo -e "${gl_kjlan}1.  ${gl_bai}サーバーの追加${gl_kjlan}2.  ${gl_bai}サーバーの削除${gl_kjlan}3.  ${gl_bai}サーバーの編集"
-	  echo -e "${gl_kjlan}4.  ${gl_bai}バックアップクラスター${gl_kjlan}5.  ${gl_bai}クラスタを復元する"
+	  echo -e "${gl_kjlan}4.  ${gl_bai}バックアップクラスタ${gl_kjlan}5.  ${gl_bai}クラスタを復元する"
 	  echo -e "${gl_kjlan}------------------------${gl_bai}"
 	  echo -e "${gl_kjlan}タスクをバッチで実行する${gl_bai}"
 	  echo -e "${gl_kjlan}11. ${gl_bai}テクノロジ ライオン スクリプトをインストールする${gl_kjlan}12. ${gl_bai}システムをアップデートする${gl_kjlan}13. ${gl_bai}システムをクリーンアップする"
@@ -12356,7 +12356,7 @@ while true; do
 
 		  4)
 			  clear
-			  send_stats "バックアップクラスター"
+			  send_stats "バックアップクラスタ"
 			  echo -e "変更してください${gl_huang}/root/cluster/servers.py${gl_bai}ファイルをダウンロードしてバックアップを完了してください。"
 			  break_end
 			  ;;
@@ -12631,7 +12631,7 @@ echo "ビデオ紹介: https://www.bilibili.com/video/BV1ib421E7it?t=0.1"
 echo "以下は、k コマンドの参考使用例です。"
 echo "スクリプトkを開始します"
 echo "パッケージをインストールします k install nano wget | k ナノ wget を追加 | nano wgetをインストールします"
-echo "パッケージをアンインストールします。 k 削除 nano wget | kデルナノwget | k nano wget をアンインストールする | nano wgetをアンインストールします"
+echo "パッケージをアンインストールします。 k 削除 nano wget | kデルナノwget | nano wget をアンインストールする | nano wgetをアンインストールします"
 echo "システム k 更新を更新します。 kアップデート"
 echo "クリーン系ジャンククリーン |きれいだ"
 echo "システムパネルを再度取り付けます。 k再インストール"

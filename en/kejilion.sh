@@ -2777,7 +2777,7 @@ while true; do
 			docker rmi -f "$docker_img"
 			rm -rf "/home/docker/$docker_name"
 			rm -f /home/docker/${docker_name}_port.conf
-			echo "App has been uninstalled"
+			echo "App uninstalled"
 			send_stats "uninstall$docker_name"
 			;;
 
@@ -3893,7 +3893,7 @@ frps_panel() {
 
 				close_port 8055 8056
 
-				echo "App has been uninstalled"
+				echo "App uninstalled"
 				;;
 			5)
 				echo "Reverse intranet penetration service into domain name access"
@@ -3983,7 +3983,7 @@ frpc_panel() {
 				docker rm -f frpc && docker rmi kjlion/frp:alpine
 				rm -rf /home/frp
 				close_port 8055
-				echo "App has been uninstalled"
+				echo "App uninstalled"
 				;;
 
 			4)
@@ -6078,7 +6078,7 @@ disk_manager() {
 	send_stats "Hard disk management function"
 	while true; do
 		clear
-		echo "Hard disk partition management"
+		echo "Hard drive partition management"
 		echo -e "${gl_huang}This feature is under internal testing and should not be used in a production environment.${gl_bai}"
 		echo "------------------------"
 		list_partitions
@@ -8418,7 +8418,7 @@ linux_panel() {
 	  echo -e "${gl_kjlan}------------------------"
 	  echo -e "${gl_kjlan}1.   ${gl_bai}Pagoda panel official version${gl_kjlan}2.   ${gl_bai}aaPanel Pagoda International Version"
 	  echo -e "${gl_kjlan}3.   ${gl_bai}1Panel new generation management panel${gl_kjlan}4.   ${gl_bai}NginxProxyManager visualization panel"
-	  echo -e "${gl_kjlan}5.   ${gl_bai}OpenList multi-store file list program${gl_kjlan}6.   ${gl_bai}Ubuntu Remote Desktop Web Version"
+	  echo -e "${gl_kjlan}5.   ${gl_bai}OpenList multi-store file list program${gl_kjlan}6.   ${gl_bai}Ubuntu Remote Desktop Web Edition"
 	  echo -e "${gl_kjlan}7.   ${gl_bai}Nezha Probe VPS Monitoring Panel${gl_kjlan}8.   ${gl_bai}QB offline BT magnetic download panel"
 	  echo -e "${gl_kjlan}9.   ${gl_bai}Poste.io mail server program${gl_kjlan}10.  ${gl_bai}RocketChat multi-person online chat system"
 	  echo -e "${gl_kjlan}------------------------"
@@ -8727,7 +8727,7 @@ linux_panel() {
 				check_docker_image_update $docker_name
 
 				clear
-				echo -e "postal service$check_docker $update_status"
+				echo -e "postal services$check_docker $update_status"
 				echo "poste.io is an open source mail server solution,"
 				echo "Video introduction: https://www.bilibili.com/video/BV1wv421C71t?t=0.1"
 
@@ -8821,7 +8821,7 @@ linux_panel() {
 						docker rmi -f analogic/poste.io
 						rm /home/docker/mail.txt
 						rm -rf /home/docker/mail
-						echo "App has been uninstalled"
+						echo "App uninstalled"
 						;;
 
 					*)
@@ -8874,7 +8874,7 @@ linux_panel() {
 				docker rm -f db
 				docker rmi -f mongo:latest
 				rm -rf /home/docker/mongo
-				echo "App has been uninstalled"
+				echo "App uninstalled"
 			}
 
 			docker_app_plus
@@ -8969,7 +8969,7 @@ linux_panel() {
 			docker_app_uninstall() {
 				cd /home/docker/cloud/ && docker compose down --rmi all
 				rm -rf /home/docker/cloud
-				echo "App has been uninstalled"
+				echo "App uninstalled"
 			}
 
 			docker_app_plus
@@ -9812,7 +9812,7 @@ linux_panel() {
 				docker rmi -f grafana/grafana:latest
 
 				rm -rf /home/docker/monitoring
-				echo "App has been uninstalled"
+				echo "App uninstalled"
 			}
 
 			docker_app_plus
@@ -10026,7 +10026,7 @@ linux_panel() {
 			docker_app_uninstall() {
 				cd  /home/docker/dify/docker/ && docker compose down --rmi all
 				rm -rf /home/docker/dify
-				echo "App has been uninstalled"
+				echo "App uninstalled"
 			}
 
 			docker_app_plus
@@ -10076,7 +10076,7 @@ linux_panel() {
 			docker_app_uninstall() {
 				cd  /home/docker/new-api/ && docker compose down --rmi all
 				rm -rf /home/docker/new-api
-				echo "App has been uninstalled"
+				echo "App uninstalled"
 			}
 
 			docker_app_plus
@@ -10116,7 +10116,7 @@ linux_panel() {
 				cd /opt
 				rm -rf jumpserver-installer*/
 				rm -rf jumpserver
-				echo "App has been uninstalled"
+				echo "App uninstalled"
 			}
 
 			docker_app_plus
@@ -10177,7 +10177,7 @@ linux_panel() {
 			docker_app_uninstall() {
 				cd  /home/docker/ragflow/docker/ && docker compose down --rmi all
 				rm -rf /home/docker/ragflow
-				echo "App has been uninstalled"
+				echo "App uninstalled"
 			}
 
 			docker_app_plus
@@ -10643,7 +10643,7 @@ linux_work() {
 	  send_stats "Backend workspace"
 	  echo -e "Backend workspace"
 	  echo -e "The system will provide you with a workspace that can run permanently in the background, which you can use to perform long-term tasks."
-	  echo -e "Even if you disconnect SSH, the tasks in the workspace will not be interrupted, and the background tasks will persist."
+	  echo -e "Even if you disconnect SSH, the tasks in the workspace will not be interrupted, and the tasks will remain in the background."
 	  echo -e "${gl_huang}hint:${gl_bai}After entering the workspace, use Ctrl+b and then press d alone to exit the workspace!"
 	  echo -e "${gl_kjlan}------------------------"
 	  echo "List of currently existing workspaces"
@@ -11087,8 +11087,8 @@ EOF
 						;;
 					2)
 						sysctl -w net.ipv6.conf.all.disable_ipv6=0 > /dev/null 2>&1
-						echo "Switched to IPv6 first"
-						send_stats "Switched to IPv6 first"
+						echo "Switched to IPv6 priority"
+						send_stats "Switched to IPv6 priority"
 						;;
 
 					3)
